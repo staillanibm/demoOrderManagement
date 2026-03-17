@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msr-order-management
+data:
+  application.properties: |
+    artConnection.demoOrderManagement.demoOrderManagement.jdbc.orders_postgres.connectionEnabled=true
+    artConnection.demoOrderManagement.demoOrderManagement.jdbc.orders_postgres.connectionSettings.serverName=$secret{DB_SERVER_NAME}
+    artConnection.demoOrderManagement.demoOrderManagement.jdbc.orders_postgres.connectionSettings.portNumber=$secret{DB_PORT}
+    artConnection.demoOrderManagement.demoOrderManagement.jdbc.orders_postgres.connectionSettings.databaseName=$secret{DB_DATABASE_NAME}
+    artConnection.demoOrderManagement.demoOrderManagement.jdbc.orders_postgres.connectionSettings.user=$secret{DB_USERNAME}
+    artConnection.demoOrderManagement.demoOrderManagement.jdbc.orders_postgres.connectionSettings.password=$secret{DB_PASSWORD}
+
+    jndi.DEFAULT_IS_JNDI_PROVIDER.providerURL=$secret{JNDI_URL}
+    jndi.DEFAULT_IS_JNDI_PROVIDER.trustStoreAlias=UM_TRUSTSTORE
+    jndi.DEFAULT_IS_JNDI_PROVIDER.trustStoreProp=nirvana.ssl.truststore.path
+    jndi.DEFAULT_IS_JNDI_PROVIDER.trustStorePwdProp=nirvana.ssl.truststore.pass
+    jms.DEFAULT_IS_JMS_CONNECTION.clientID=DEFAULT_IS_JMS_CLIENT
+    jms.DEFAULT_IS_JMS_CONNECTION.enabled=true
+    jms.DEFAULT_IS_JMS_CONNECTION.csqSize=0
+    jms.DEFAULT_IS_JMS_CONNECTION.jndi_jndiAliasName=DEFAULT_IS_JNDI_PROVIDER
+    jms.DEFAULT_IS_JMS_CONNECTION.jndi_automaticallyCreateUMAdminObjects=true
+    jms.DEFAULT_IS_JMS_CONNECTION.producerMaxRetryAttempts=30
+    jms.DEFAULT_IS_JMS_CONNECTION.producerRetryInterval=1000
+    jms.DEFAULT_IS_JMS_CONNECTION.jndi_connectionFactoryLookupName=k8s_um
+
+    settings.watt.net.default.accept=application/json
+    settings.watt.server.ns.lockingMode=none
+
+    user.Administrator.password=$secret{ADMIN_PASSWORD}
+
+    group.Everybody.users=tester
+    user.tester.password=$secret{TESTER_PASSWORD}
+
+    globalvariable.SERVER.value=$env{HOSTNAME}
+
+    truststore.UM_TRUSTSTORE.ksLocation=/certs/um/um-truststore.jks
+    truststore.UM_TRUSTSTORE.ksPassword=$secret{UM_TRUSTSTORE_PASSWORD}

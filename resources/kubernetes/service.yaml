@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: msr-order-management
+  labels:
+    name: msr-order-management
+    app: msr-order-management
+    monitoring: enabled 
+spec:
+  selector:
+    app: msr-order-management
+  type: ClusterIP
+  sessionAffinity: ClientIP
+  ports:
+  - port: 5555
+    targetPort: 5555
+    name: http

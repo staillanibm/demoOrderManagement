@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: msr-order-management
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "order-management.sttlab.local"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: msr-order-management
+            port: 
+              number: 5555
+  tls:
+  - hosts: 
+    - order-management.sttlab.local
+    secretName: tls-cert

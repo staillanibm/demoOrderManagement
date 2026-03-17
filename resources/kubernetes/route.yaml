@@ -1,0 +1,17 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: msr-order-management
+  labels:
+    app: msr-order-management
+spec:
+  to:
+    kind: Service
+    name: msr-order-management
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+

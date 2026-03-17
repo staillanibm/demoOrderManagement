@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: msr-order-management
+    app.kubernetes.io/name: microservicesruntime
+  name: msr-order-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msr-order-management
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: msr-order-management
+    spec:
+      imagePullSecrets:
+        - name: orders-regcred
+      serviceAccountName: order-management-sa 
+      containers:
+        - image: ghcr.io/staillanibm/msr-order-management:1.0.0
+          name: msr
+          volumeMounts:
+            - name: application-properties
+              mountPath: /opt/softwareag/IntegrationServer/application.properties
+              subPath:   application.properties
+              readOnly:  true
+            - name: secrets
+              mountPath: /etc/secrets
+            - name: um-truststore
+              mountPath: /certs/um/um-truststore.jks
+              subPath: um-truststore.jks
+              readOnly: true
+            - name: msr-order-management-pvc
+              mountPath: /opt/softwareag/IntegrationServer/files
+          readinessProbe:
+            tcpSocket:
+              port: 5555
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            failureThreshold: 18
+          livenessProbe:
+            tcpSocket:
+              port: 5555
+            failureThreshold: 3
+            initialDelaySeconds: 120
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 300m
+              memory: 500Mi
+            limits:
+              cpu: 1000m
+              memory: 2000Mi
+      volumes:
+        - name: application-properties
+          configMap:
+            name: msr-order-management
+            items:
+            - key:  application.properties
+              path: application.properties
+        - name: secrets
+          secret:
+            secretName: msr-order-management
+        - name: um-truststore
+          secret:
+            secretName: um-truststore
+            items:
+            - key:  um-truststore.jks
+              path: um-truststore.jks
+        - name: msr-order-management-pvc
+          persistentVolumeClaim:
+            claimName: msr-order-management

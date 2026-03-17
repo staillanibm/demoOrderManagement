@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    networks:
+      - wm
+    ports:
+      - "15432:5432"
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres-vol:/var/lib/postgresql/data
+
+  umserver:
+    image: ibmwebmethods.azurecr.io/universalmessaging-server:11.1.2
+    container_name: umserver
+    networks:
+      - wm
+    ports:
+      - "19000:9000"
+      - "19200:9200"
+    env_file:
+      - .env
+    volumes:
+      - um-data-vol:/opt/softwareag/UniversalMessaging/server/umserver/data
+      - um-conf-vol:/opt/softwareag/common/conf
+    healthcheck:
+      interval: 5s
+      retries: 12
+      test: ["CMD-SHELL", "curl --silent http://localhost:9000/health/ | grep -q '\"ServerStatus\":\"OK\"'"]
+
+  msr:
+    image: ${IMAGE_NAME}:${TAG}
+    container_name: ${DEPLOYMENT_NAME}
+    depends_on:
+      - umserver
+      - postgres
+    networks:
+      - wm
+    ports:
+      - "${DOCKER_PORT_NUMBER}:5555"
+    volumes:
+      - ./application.properties:/opt/softwareag/IntegrationServer/application.properties
+      - ./files:/opt/softwareag/IntegrationServer/files
+    env_file:
+      - .env
+    healthcheck:
+      interval: 5s
+      retries: 24
+      test: ["CMD-SHELL", "curl -o /dev/null -s -w '%{http_code}' http://localhost:5555 | grep -qE '^(200|3[0-9]{2})$'"]
+
+networks:
+  wm:
+
+volumes:
+  postgres-vol:
+  um-data-vol:
+  um-conf-vol:

@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- service-account.yaml
+- config-map.yaml
+- pvc.yml
+- deployment.yaml
+- service.yaml
+- route.yaml
+- ingress.yaml
+- hpa.yaml
+- service-monitor.yaml
+
+images:
+- name: ghcr.io/staillanibm/msr-order-management
+  newName: ghcr.io/staillanibm/msr-order-management
+  newTag: 1.0.2

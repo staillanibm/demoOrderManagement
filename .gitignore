@@ -1,0 +1,15 @@
+*.bak
+*secrets.yml
+*secrets.yaml
+.env
+.DS_Store
+/bin/
+*.p12
+*.jks
+config/empw.dat
+config/globalVariables.cnf
+config/passman.cnf
+config/txnPassStore.dat
+config/WORK-txnPassStore.dat
+.claude
+resources/openshift/.env

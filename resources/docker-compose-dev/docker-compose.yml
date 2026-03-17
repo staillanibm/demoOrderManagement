@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-dev
+    networks:
+      - wm
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres-vol:/var/lib/postgresql/data
+
+  umserver:
+    image: ibmwebmethods.azurecr.io/universalmessaging-server:11.1.2
+    container_name: umserver-dev
+    networks:
+      - wm
+    ports:
+      - "9000:9000"
+      - "9200:9200"
+    env_file:
+      - .env
+    volumes:
+      - um-data-vol:/opt/softwareag/UniversalMessaging/server/umserver/data
+      - um-conf-vol:/opt/softwareag/common/conf
+    healthcheck:
+      interval: 5s
+      retries: 12
+      test: ["CMD-SHELL", "curl --silent http://localhost:9000/health/ | grep -q '\"ServerStatus\":\"OK\"'"]
+
+networks:
+  wm:
+
+volumes:
+  postgres-vol:
+  um-data-vol:
+  um-conf-vol:
