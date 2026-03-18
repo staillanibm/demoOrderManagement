@@ -34,7 +34,7 @@ jobs:
 
     - name: Build microservice Image
       run: |
-        docker build -t ${{ secrets.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }} --build-arg REGISTRY_URL=${{ secrets.REGISTRY_URL }} .
+        docker build -t ${{ secrets.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }} --build-arg WPM_TOKEN=${{ secrets.WPM_TOKEN }} .
 
     - name: Push microservice Image
       run: |
