@@ -16,9 +16,17 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Log in to Container Registry
+    - name: Log in to target Container Registry
       run: |
         echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+      env:
+        REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
+        REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }} 
+        REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }} 
+
+    - name: Log in to base Container Registry
+      run: |
+        echo "${{ secrets.BASE_REGISTRY_PASSWORD }}" | docker login ${{ secrets.BASE_REGISTRY_URL }} -u "${{ secrets.BASE_REGISTRY_USERNAME }}" --password-stdin
       env:
         REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
         REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }} 
