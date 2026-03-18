@@ -1,0 +1,234 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "orders"
+host: "localhost:5555"
+basePath: "/OrdersAPI"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /orders:
+    get:
+      operationId: "orders_GET_1"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/orders_GET_response"
+        "401":
+          description: "Access Denied"
+    post:
+      operationId: "orders_POST_1"
+      parameters:
+      - in: "body"
+        name: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderRequest"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/orders_POST_response"
+        "401":
+          description: "Access Denied"
+  /orders/{orderId}:
+    get:
+      operationId: "ordersorderId_GET_2"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ordersorderId_GET_response"
+        "401":
+          description: "Access Denied"
+definitions:
+  items_1:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    - "quantity"
+    - "totalPrice"
+    - "unitPrice"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      quantity:
+        type: "string"
+      unitPrice:
+        type: "string"
+      totalPrice:
+        type: "string"
+  customer_1:
+    type: "object"
+    required:
+    - "email"
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      email:
+        type: "string"
+  customer:
+    type: "object"
+    required:
+    - "email"
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      email:
+        type: "string"
+  shippingAddress_1:
+    type: "object"
+    required:
+    - "city"
+    - "country"
+    - "postalCode"
+    - "street"
+    properties:
+      street:
+        type: "string"
+      city:
+        type: "string"
+      postalCode:
+        type: "string"
+      country:
+        type: "string"
+  ordersorderId_GET_response:
+    type: "object"
+    required:
+    - "order"
+    properties:
+      order:
+        $ref: "#/definitions/OrderCanonical"
+  orders_POST_response:
+    type: "object"
+    required:
+    - "status"
+    properties:
+      status:
+        type: "string"
+  OrderCanonical:
+    type: "object"
+    required:
+    - "currency"
+    - "customer"
+    - "date"
+    - "id"
+    - "items"
+    - "shippingAddress"
+    - "status"
+    properties:
+      id:
+        type: "string"
+      date:
+        type: "string"
+      status:
+        type: "string"
+      customer:
+        $ref: "#/definitions/customer_1"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/items_1"
+      shippingAddress:
+        $ref: "#/definitions/shippingAddress_1"
+      currency:
+        type: "string"
+  OrderRequest:
+    type: "object"
+    required:
+    - "orderRequest"
+    properties:
+      orderRequest:
+        $ref: "#/definitions/orderRequest"
+  orderRequest:
+    type: "object"
+    required:
+    - "currency"
+    - "customer"
+    - "date"
+    - "id"
+    - "items"
+    - "shippingAddress"
+    properties:
+      id:
+        type: "string"
+      date:
+        type: "string"
+      customer:
+        $ref: "#/definitions/customer"
+      shippingAddress:
+        $ref: "#/definitions/shippingAddress"
+      currency:
+        type: "string"
+      items:
+        $ref: "#/definitions/items"
+  shippingAddress:
+    type: "object"
+    required:
+    - "city"
+    - "country"
+    - "postalCode"
+    - "street"
+    properties:
+      street:
+        type: "string"
+      city:
+        type: "string"
+      postalCode:
+        type: "string"
+      country:
+        type: "string"
+  item:
+    type: "object"
+    required:
+    - "id"
+    - "quantity"
+    - "unitPrice"
+    properties:
+      id:
+        type: "string"
+      quantity:
+        type: "string"
+      unitPrice:
+        type: "string"
+  items:
+    type: "object"
+    required:
+    - "item"
+    properties:
+      item:
+        type: "array"
+        items:
+          $ref: "#/definitions/item"
+  orders_GET_response:
+    type: "object"
+    required:
+    - "orders"
+    properties:
+      orders:
+        type: "array"
+        items:
+          $ref: "#/definitions/OrderCanonical"

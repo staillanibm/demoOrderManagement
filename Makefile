@@ -6,6 +6,7 @@ TAG=latest
 
 DEPLOYMENT_NAME=msr-order-management
 
+MSR_DEV_PORT_NUMBER=15555
 DOCKER_PORT_NUMBER=16666
 DOCKER_ROOT_URL=http://localhost:$(DOCKER_PORT_NUMBER)
 DOCKER_ADMIN_PASSWORD=$(shell grep '^ADMIN_PASSWORD=' ./resources/docker-compose/.env | cut -d'=' -f2)
@@ -27,16 +28,24 @@ docker-push:
 	$(DOCKER_RUNTIME) push $(IMAGE_NAME):$(TAG)
 
 docker-dev-run:
-	$(COMPOSE_RUNTIME) -f ./resources/docker-compose-dev/docker-compose.yml up -d
+	MSR_DEV_PORT_NUMBER=${MSR_DEV_PORT_NUMBER} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) $(COMPOSE_RUNTIME) -f ./resources/docker-compose-dev/docker-compose.yml up -d
 
 docker-dev-stop:
-	$(COMPOSE_RUNTIME) -f ./resources/docker-compose-dev/docker-compose.yml down
+	MSR_DEV_PORT_NUMBER=${MSR_DEV_PORT_NUMBER} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) $(COMPOSE_RUNTIME) -f ./resources/docker-compose-dev/docker-compose.yml down
+
+docker-dev-msr-logs:
+	$(DOCKER_RUNTIME) logs -f DEPLOYMENT_NAME=$(DEPLOYMENT_NAME)-dev
+
+# make sure to pass the PACKAGE variable when invoking this target, e.g.:
+# make docker-dev-link-package PACKAGE=sttTest
+docker-dev-link-package:
+	$(DOCKER_RUNTIME) exec -it $(DEPLOYMENT_NAME)-dev ln -s /opt/softwareag/IntegrationServer/packages/${PACKAGE} /git/${PACKAGE}
 
 docker-run:
-	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER} $(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml up -d
+	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME)-dev DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER} $(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml up -d
 
 docker-stop:
-	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER}	$(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml down
+	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME)-dev DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER}	$(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml down
 
 docker-msr-logs:
 	$(DOCKER_RUNTIME) logs -f $(DEPLOYMENT_NAME)

@@ -1,0 +1,37 @@
+name: Build and push the image
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main 
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.set_tag.outputs.image_tag }}
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Log in to Container Registry
+      run: |
+        echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+      env:
+        REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
+        REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }} 
+        REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }} 
+
+    - name: Build microservice Image
+      run: |
+        docker build -t ${{ secrets.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }} --build-arg REGISTRY_URL=${{ secrets.REGISTRY_URL }} .
+
+    - name: Push microservice Image
+      run: |
+        docker push ${{ secrets.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }}
+
+    - name: Save Tag for Later
+      id: set_tag
+      run: echo "image_tag=${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }}" >> $GITHUB_OUTPUT

@@ -1,4 +1,22 @@
 services:
+  msr: 
+    image: ibmwebmethods.azurecr.io/webmethods-microservicesruntime:11.1.0.9
+    container_name: ${DEPLOYMENT_NAME}
+    networks:
+      - wm
+    ports:
+      - "${MSR_DEV_PORT_NUMBER}:5555"
+    volumes:
+      - msr_dev_config:/opt/softwareag/IntegrationServer/config
+      - msr_dev_packages:/opt/softwareag/IntegrationServer/packages
+      - $HOME/git:/git  # Mounting the host's git directory to easily copy files in/out of the container for development purposes. Adjust as needed.
+    env_file:
+      - .env
+    healthcheck:
+      interval: 5s
+      retries: 24
+      test: ["CMD-SHELL", "curl -o /dev/null -s -w '%{http_code}' http://localhost:5555 | grep -qE '^(200|3[0-9]{2})$'"]
+
   postgres:
     image: postgres:latest
     container_name: postgres-dev
@@ -36,6 +54,8 @@ networks:
   wm:
 
 volumes:
+  msr_dev_config:
+  msr_dev_packages:
   postgres-vol:
   um-data-vol:
   um-conf-vol:

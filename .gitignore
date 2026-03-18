@@ -13,3 +13,5 @@ config/txnPassStore.dat
 config/WORK-txnPassStore.dat
 .claude
 resources/openshift/.env
+*.bkp
+resources/docker-compose/files/
