@@ -18,27 +18,25 @@ jobs:
 
     - name: Log in to target Container Registry
       run: |
-        echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+        echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ vars.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
       env:
-        REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
         REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }} 
         REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }} 
 
     - name: Log in to base Container Registry
       run: |
-        echo "${{ secrets.BASE_REGISTRY_PASSWORD }}" | docker login ${{ secrets.BASE_REGISTRY_URL }} -u "${{ secrets.BASE_REGISTRY_USERNAME }}" --password-stdin
+        echo "${{ secrets.BASE_REGISTRY_PASSWORD }}" | docker login ${{ vars.BASE_REGISTRY_URL }} -u "${{ secrets.BASE_REGISTRY_USERNAME }}" --password-stdin
       env:
-        REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
         REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }} 
         REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }} 
 
     - name: Build microservice Image
       run: |
-        docker build -t ${{ secrets.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }} --build-arg WPM_TOKEN=${{ secrets.WPM_TOKEN }} .
+        docker build -t ${{ vars.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }} --build-arg WPM_TOKEN=${{ secrets.WPM_TOKEN }} .
 
     - name: Push microservice Image
       run: |
-        docker push ${{ secrets.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }}
+        docker push ${{ vars.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }}
 
     - name: Save Tag for Later
       id: set_tag
