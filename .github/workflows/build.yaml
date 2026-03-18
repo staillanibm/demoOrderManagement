@@ -19,6 +19,7 @@ jobs:
     - name: Log in to target Container Registry
       run: |
         echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ vars.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+        docker pull ghcr.io/staillanibm/msr-order-management:1.0.2
       env:
         REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }} 
         REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }} 
