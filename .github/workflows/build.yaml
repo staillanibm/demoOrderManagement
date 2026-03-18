@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     outputs:
       image_tag: ${{ steps.set_tag.outputs.image_tag }}
 
