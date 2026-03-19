@@ -8,32 +8,32 @@ Deploying a webMethods integration microservice in Kubernetes is not fundamental
 graph LR
     client([External client])
 
-    subgraph cluster[Kubernetes / OpenShift cluster]
+    subgraph cluster[Kubernetes - OpenShift cluster]
         subgraph monitoring[Monitoring]
             prometheus[Prometheus]
             sm[ServiceMonitor]
         end
 
         subgraph network[Networking]
-            ingress[Ingress NGINX+TLS / Route OCP]
-            svc[Service ClusterIP port 5555]
+            ingress[Ingress - Route OCP]
+            svc[Service ClusterIP 5555]
         end
 
         subgraph deploy[Deployment]
             subgraph rs[ReplicaSet]
                 subgraph pod[Pod]
-                    msr[MSR container port 5555]
+                    msr[MSR container 5555]
                 end
             end
         end
 
-        hpa[HPA 1-3 replicas CPU 90pct]
+        hpa[HPA 1-3 replicas]
 
         subgraph vols[Volumes]
             cm[ConfigMap application.properties]
             secrets[Secret credentials]
-            truststore[Secret um-truststore.jks]
-            pvc[PVC files ReadWriteMany]
+            truststore[Secret truststore]
+            pvc[PVC ReadWriteMany]
         end
     end
 
@@ -44,9 +44,9 @@ graph LR
     prometheus -->|reads| sm
     sm -->|scrapes| svc
     cm -->|mounted| msr
-    secrets -->|mounted /etc/secrets| msr
-    truststore -->|mounted /certs/um| msr
-    pvc -->|mounted files/| msr
+    secrets -->|mounted| msr
+    truststore -->|mounted| msr
+    pvc -->|mounted| msr
 ```
 
 ## TLS termination
