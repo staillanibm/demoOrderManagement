@@ -103,8 +103,13 @@ jobs:
 
     - name: Retrieve test credentials
       run: |
-        ROOT_URL=$(kubectl get ingress ${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} -o jsonpath='{.spec.rules[0].host}')
-        echo "ROOT_URL=https://${ROOT_URL}" >> $GITHUB_ENV
+        ROUTE_HOST=$(kubectl get route ${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} -o jsonpath='{.spec.host}' 2>/dev/null || true)
+        if [ -n "$ROUTE_HOST" ]; then
+          echo "ROOT_URL=https://${ROUTE_HOST}" >> $GITHUB_ENV
+        else
+          INGRESS_HOST=$(kubectl get ingress ${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} -o jsonpath='{.spec.rules[0].host}')
+          echo "ROOT_URL=https://${INGRESS_HOST}" >> $GITHUB_ENV
+        fi
         TESTER_PASSWORD=$(kubectl get secret ${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} -o jsonpath='{.data.TESTER_PASSWORD}' | base64 -d)
         echo "::add-mask::$TESTER_PASSWORD"
         echo "TESTER_PASSWORD=$TESTER_PASSWORD" >> $GITHUB_ENV
