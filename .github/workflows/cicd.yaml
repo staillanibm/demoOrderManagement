@@ -86,3 +86,54 @@ jobs:
           fi
           echo "$POD: OK"
         done
+        
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up kubeconfig
+      run: |
+        mkdir -p ~/.kube
+        echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+        chmod 600 ~/.kube/config
+
+    - name: Retrieve test credentials
+      run: |
+        ROOT_URL=$(kubectl get ingress ${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} -o jsonpath='{.spec.rules[0].host}')
+        echo "ROOT_URL=https://${ROOT_URL}" >> $GITHUB_ENV
+        TESTER_PASSWORD=$(kubectl get secret ${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} -o jsonpath='{.data.TESTER_PASSWORD}' | base64 -d)
+        echo "::add-mask::$TESTER_PASSWORD"
+        echo "TESTER_PASSWORD=$TESTER_PASSWORD" >> $GITHUB_ENV
+
+    - name: Test - File inbound channel
+      run: |
+        OUTPUT=$(KUBE_NAMESPACE=${{ vars.KUBE_NAMESPACE }} bash ./resources/tests/injectFile.sh)
+        echo "$OUTPUT"
+        echo "FILE_ORDER_ID_1=$(echo "$OUTPUT" | grep ORDER_ID_1 | cut -d= -f2)" >> $GITHUB_ENV
+        echo "FILE_ORDER_ID_2=$(echo "$OUTPUT" | grep ORDER_ID_2 | cut -d= -f2)" >> $GITHUB_ENV
+
+    - name: Test - REST API inbound channel
+      run: |
+        TS=$(date +%Y%m%d-%H%M%S)
+        TS=$TS ISO_TS=$(date +%Y-%m-%dT%H:%M:%S.000) ROOT_URL=$ROOT_URL API_USER=tester API_PASSWORD=$TESTER_PASSWORD \
+          bash ./resources/tests/postOrder.sh
+        echo "API_ORDER_ID=ORD-${TS}" >> $GITHUB_ENV
+
+    - name: Wait for processing
+      run: sleep 10
+
+    - name: Verify - File orders persisted
+      run: |
+        for ORDER_ID in "$FILE_ORDER_ID_1" "$FILE_ORDER_ID_2"; do
+          ROOT_URL=$ROOT_URL API_USER=tester API_PASSWORD=$TESTER_PASSWORD ORDER_ID=$ORDER_ID \
+            bash ./resources/tests/getOrderById.sh
+        done
+
+    - name: Verify - API order persisted
+      run: |
+        ROOT_URL=$ROOT_URL API_USER=tester API_PASSWORD=$TESTER_PASSWORD ORDER_ID=$API_ORDER_ID \
+          bash ./resources/tests/getOrderById.sh

@@ -4,7 +4,7 @@ API_PASSWORD=${API_PASSWORD:-"manage"}
 TS=${TS:-$(date +%Y%m%d-%H%M%S)}
 ISO_TS=${ISO_TS:-$(date +%Y-%m-%dT%H:%M:%S.000)}
 
-curl -X POST "${ROOT_URL}/OrdersAPI/orders" \
+RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${ROOT_URL}/OrdersAPI/orders" \
   -u "${API_USER}:${API_PASSWORD}" \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
@@ -39,4 +39,16 @@ curl -X POST "${ROOT_URL}/OrdersAPI/orders" \
         ]
       }
     }
-  }'
+  }')
+
+STATUS=$(echo "$RESPONSE" | tail -1)
+BODY=$(echo "$RESPONSE" | head -n -1)
+
+echo "$BODY" | jq .
+
+if [ "$STATUS" != "202" ]; then
+  echo "POST /orders failed: HTTP $STATUS"
+  exit 1
+fi
+
+echo "POST /orders/ORD-${TS}: OK"

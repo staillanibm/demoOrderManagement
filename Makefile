@@ -12,8 +12,8 @@ DOCKER_ROOT_URL=http://localhost:$(DOCKER_PORT_NUMBER)
 DOCKER_ADMIN_PASSWORD=$(shell grep '^ADMIN_PASSWORD=' ./resources/docker-compose/.env | cut -d'=' -f2)
 
 KUBE_NAMESPACE=integration
-KUBE_ROOT_URL=https://$(shell oc get route $(DEPLOYMENT_NAME) -n $(KUBE_NAMESPACE) -o jsonpath='{.spec.host}')
-KUBE_TEST_PASSWORD=$(shell oc get secret $(DEPLOYMENT_NAME) -n $(KUBE_NAMESPACE) -o jsonpath='{.data.TESTER_PASSWORD}' | base64 -d)
+KUBE_ROOT_URL=https://$(shell kubectl get route $(DEPLOYMENT_NAME) -n $(KUBE_NAMESPACE) -o jsonpath='{.spec.host}')
+KUBE_TEST_PASSWORD=$(shell kubectl get secret $(DEPLOYMENT_NAME) -n $(KUBE_NAMESPACE) -o jsonpath='{.data.TESTER_PASSWORD}' | base64 -d)
 
 docker-build:
 	$(DOCKER_RUNTIME) build -t $(IMAGE_NAME):$(TAG) --platform=linux/amd64 --build-arg WPM_TOKEN=${WPM_TOKEN} .
