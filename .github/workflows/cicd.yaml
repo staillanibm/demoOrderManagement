@@ -129,7 +129,7 @@ jobs:
         echo "API_ORDER_ID=ORD-${TS}" >> $GITHUB_ENV
 
     - name: Wait for processing
-      run: sleep 10
+      run: sleep 30
 
     - name: Verify - File orders persisted
       run: |
