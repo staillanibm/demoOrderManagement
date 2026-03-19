@@ -76,7 +76,7 @@ jobs:
 
     - name: Sanity check
       run: |
-        PODS=$(kubectl get pods -l app=${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} --field-selector=status.phase=Running -o jsonpath='{.items[*].metadata.name}')
+        PODS=$(kubectl get pods -l app=${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} -o jsonpath='{range .items[?(@.status.containerStatuses[0].ready==true)]}{.metadata.name}{" "}{end}')
         for POD in $PODS; do
           echo "Checking $POD..."
           STATUS=$(kubectl exec $POD -n ${{ vars.KUBE_NAMESPACE }} -- curl -s -o /dev/null -w "%{http_code}" http://localhost:5555/health)
