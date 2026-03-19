@@ -12,16 +12,14 @@
 8. [Testing using Docker Compose](resources/documentation/testing-docker-compose.md)
 9. [Deployment in Kubernetes (and OpenShift)](resources/documentation/deployment-kubernetes.md)
 10. [CI/CD](resources/documentation/cicd.md)
-11. [Upgrades](resources/documentation/upgrades.md)
+11. [webMethods upgrades](resources/documentation/webmethods-upgrades.md)
 12. [Observability](resources/documentation/observability.md)
 13. [webMethods Monitoring](resources/documentation/webmethods-monitoring.md)
 14. [Breaking the Monolith](resources/documentation/breaking-the-monolith.md)
-15. [Recommendations](resources/documentation/recommendations.md)
+15. [Autoscaling](resources/documentation/autoscaling.md)
+16. [Pre-baked vs Fried](resources/documentation/prebaked-vs-fried.md)
+17. [Recommendations](resources/documentation/recommendations.md)
 
-Missing:
-- dev environment using compose
-- prebaked Vs fried
-- autoscaling et serverless
 ---
 
 ## Introduction

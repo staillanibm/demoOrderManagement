@@ -46,13 +46,13 @@ This is the recommended approach. The entire environment is defined as code (`do
 
 > The Docker Compose topology is the recommended approach for cloud-native webMethods development. The `resources/docker-compose-dev/` directory in this repository provides a ready-to-use stack for this project.
 
-## Local Service Development
+## Local Service Development (LSD)
 
 The Designer includes a **Local Service Development** feature that further streamlines decentralized workflows. It embeds a Git client directly in the IDE and provides native integration with a locally running MSR deployed via Docker — making it possible to develop, version, and test integrations without leaving the Designer.
 
 See the [official documentation](https://www.ibm.com/docs/en/webmethods-integration/wm-integration-server/11.1.0?topic=guide-using-local-service-development-feature) for setup and usage details.
 
-> **Note:** The automatic integration between the Designer and a Docker-based MSR may not work in all environments — known cases include Docker running inside Windows WSL, or Podman as a container runtime. In such situations, a simple workaround is to use symbolic links to point the MSR's packages directories to the local Git working tree, effectively achieving the same result without relying on the LSD auto-detection mechanism.
+> **Note:** The automatic integration between the Designer and a Docker-based MSR may not work in all environments — known cases include Docker running inside Windows WSL, or Podman as a container runtime. In such situations, integration packages hosted by the Docker container cannot be added to LSD. A simple workaround is to use symbolic links to point the MSR's packages directories to the local Git working tree, effectively achieving the same result without relying on LSD. In this case, the Git client embedded in the Designer will not be usable, but any other Git client will do the job.
 
 ## Additional tooling
 

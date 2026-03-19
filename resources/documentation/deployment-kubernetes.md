@@ -59,6 +59,26 @@ The MSR exposes HTTP on port `5555`, like any standard web application. TLS term
 | **Passthrough** | TLS is terminated inside the pod. The ingress forwards encrypted traffic as-is. Requires the MSR to be configured with a keystore. |
 | **Re-encrypt** | TLS is terminated at the ingress, then re-encrypted for the leg between the ingress and the pod. |
 
+## Health probes
+
+Kubernetes uses liveness and readiness probes to manage pod lifecycle. Three strategies are available for the MSR.
+
+**TCP probe** — the simplest option: Kubernetes checks that port `5555` accepts connections. It does not verify that the MSR is actually ready to serve requests, but it is a reliable and zero-configuration baseline. This is what this repository uses.
+
+**MSR built-in HTTP endpoints** — the MSR exposes dedicated health endpoints out of the box (see the [official documentation](https://www.ibm.com/docs/en/webmethods-integration/wm-microservices-runtime/11.1.0?topic=guide-monitoring-microservices-runtime)):
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /health` | Overall health status |
+| `GET /health/readiness` | Readiness — whether the MSR is ready to accept traffic |
+| `GET /health/liveness` | Liveness — whether the MSR process is alive and should be kept running |
+
+These endpoints are configurable and provide a more meaningful signal than a TCP check — in particular, the readiness probe will correctly report not-ready while the MSR is still initialising packages, preventing premature traffic routing.
+
+**Custom health endpoint** — for flows where application-level health matters (e.g. verifying that a database connection or JMS session is functional), a custom health service can be implemented directly in the integration package and exposed as an HTTP endpoint. This gives full control over what "healthy" means for a specific microservice.
+
+In practice, the HTTP endpoints (`/health/readiness` and `/health/liveness`) are the recommended choice for production deployments — they are purpose-built for this use case and require no custom development.
+
 ## Kubernetes vs OpenShift
 
 The only OCP-specific resource is `route.yaml`, which replaces the Ingress for external access. Everything else is identical.

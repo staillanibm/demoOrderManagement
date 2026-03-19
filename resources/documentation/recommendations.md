@@ -39,3 +39,14 @@ A headless microservice exposes only the interfaces required for its integration
 - Use the admin console on development environments only, as a configuration helper (e.g. to generate the properties template).
 - If a UI is needed for monitoring and replay, **dedicate a separate MSR deployment** to that purpose — this is the only instance that should expose a UI. It can be connected to an IdP or LDAP for authentication. See [webMethods Monitoring](webmethods-monitoring.md) for details on this pattern.
 
+## Invest in automated testing
+
+Accelerating delivery through CI/CD without a matching investment in automated testing is a risk multiplier. The faster you ship, the faster you can break production — unless tests act as a gate.
+
+**What to use:**
+- **curl** or **[Newman](https://github.com/postmanlabs/newman)** (the Postman CLI) cover most REST API testing needs and integrate naturally into a CI pipeline.
+- **Shell scripts** are the pragmatic tool for file-based channel testing: generate a file, inject it, poll for the result.
+- For more complex scenarios — multi-step flows, data validation, correlation across systems — standard tools quickly reach their limits. In those cases, invest in purpose-built test tooling. This is particularly true for **asynchronous flows**, where there is little off-the-shelf tooling that handles the polling, correlation, and timing concerns cleanly. The return on that investment is guaranteed.
+
+**Where to put the tests:**
+There is a genuine tension here. Keeping tests inside the microservice repository is the pragmatic choice — everything is in one place, tests travel with the code, and the CI pipeline has immediate access to them. Putting tests in a separate repository reduces the attack surface of the microservice image and enforces a cleaner separation between production code and test tooling. In practice, the right answer depends on the sensitivity of the target environment: for most integration microservices, co-locating tests with the code is the right default. For services handling regulated or sensitive data, the separation is worth the overhead.

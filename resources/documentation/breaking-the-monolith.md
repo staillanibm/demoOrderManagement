@@ -8,7 +8,9 @@ The ultimate goal is **agility at multiple levels**: faster and safer deployment
 
 There is no single right answer on where to draw the lines — boundaries can be drawn along technical, functional, or organizational axes, and in practice the three are combined.
 
-## Technical partitioning
+## Partitioning criteria
+
+### Technical partitioning
 
 Split by technical nature of the flows. Meaningful boundaries include:
 
@@ -18,7 +20,7 @@ Split by technical nature of the flows. Meaningful boundaries include:
 
 This axis maps well to existing IS package structures and is often the easiest starting point. The risk is producing services that are technically clean but still share business logic — a change to a business rule may require touching multiple services.
 
-## Functional partitioning
+### Functional partitioning
 
 Split by business domain or capability, following **Domain-Driven Design (DDD)** principles. The key concept is the *bounded context*: a clearly delimited area of the business with its own model, its own language, and its own rules. Each bounded context becomes a natural candidate for a microservice — or a small cluster of microservices. For example:
 
@@ -28,7 +30,7 @@ Split by business domain or capability, following **Domain-Driven Design (DDD)**
 
 This is the recommended long-term target. Each microservice owns a coherent slice of business functionality end-to-end, regardless of the protocols involved. Boundaries are stable because they follow the business, not the technology — and the business changes less often than the technical stack.
 
-## Criticality and compliance partitioning
+### Criticality and compliance partitioning
 
 Isolate flows by their risk profile, SLA requirements, or regulatory constraints. This axis is often overlooked but can be decisive:
 
@@ -37,19 +39,37 @@ Isolate flows by their risk profile, SLA requirements, or regulatory constraints
 
 In practice this axis often refines a functional or organizational boundary: two flows in the same domain may still warrant separation if one carries regulated data and the other does not.
 
-## Organizational partitioning
+### Organizational partitioning
 
 Follow team boundaries — Conway's Law states that the architecture of a system tends to mirror the communication structure of the organization that produces it. Rather than fighting this, use it deliberately: assign ownership of each microservice to a single team, and draw boundaries where team handoffs occur.
 
 This axis is often the most pragmatic starting point in large organizations, as it reduces coordination overhead and gives teams clear ownership.
 
-## In practice
+### In practice
 
 These four axes are not mutually exclusive — a good decomposition typically satisfies all four simultaneously: each microservice is technically coherent, covers a well-defined functional scope, and is owned by a single team.
 
-A few practical guidelines:
+## Methodology
 
-- **Start coarse, refine later.** It is easier to split a service further than to merge two services that have diverged. Avoid over-partitioning early.
-- **Avoid shared packages between microservices.** Common framework packages belong in the corporate base image. Shared business logic is a sign that the boundary is drawn in the wrong place.
-- **Each microservice should be independently deployable.** If deploying service A requires coordinating with service B, the boundary needs revisiting.
-- **Data ownership matters.** Each microservice should own its data store. A shared database is a coupling point that limits independent evolution — even if it is sometimes a pragmatic compromise (see [webMethods Monitoring](webmethods-monitoring.md) for an acknowledged example).
+### The Strangler Fig pattern
+
+Deciding where to draw boundaries is one challenge. Executing the migration without disrupting the running platform is another. The **Strangler Fig** pattern is the standard approach for this, widely used in microservices migrations and directly applicable to ESB decomposition.
+
+The idea, borrowed from the strangler fig tree that slowly envelops and replaces its host, is to migrate incrementally rather than in a single cutover:
+
+1. **Identify a candidate flow** — pick a well-bounded, lower-risk integration as the first target. Apply the partitioning axes above to select it.
+2. **Build the microservice alongside the monolith** — implement the flow as a new, independent microservice. The existing IS package continues to run.
+3. **Route traffic to the new service** — redirect the relevant inbound channel (API calls, JMS messages, file drops) to the microservice. The monolith handles everything else unchanged.
+4. **Decommission the old flow** — once the microservice is stable in production, remove the corresponding flow from the monolith.
+5. **Repeat** — progressively migrate flows, one at a time, until the monolith is empty enough to be decommissioned.
+
+At no point is there a big-bang cutover. The monolith shrinks gradually while the microservice estate grows, and each migration is independently reversible.
+
+**Applied to an IS monolith**, the routing step deserves attention. Depending on the inbound channel:
+- **REST/HTTP APIs** — an API gateway or ingress rule can redirect specific paths to the new microservice while leaving others on the IS.
+- **JMS flows** — the JMS trigger in the monolith is disabled; the microservice subscribes to the same queue or topic.
+- **File polling** — the polling listener in the monolith is stopped; the microservice takes over the watched directory.
+
+The strangler fig does not require the monolith and the microservice to coexist indefinitely — the goal is always to complete the migration and retire the old flow. But it removes the need to migrate everything at once, which is rarely feasible in a production environment.
+
+
