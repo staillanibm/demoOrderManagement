@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2026-03-19T13:09:42.436Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="DA1jx5c405k7Oho4fU7r" version="24.6.4" type="device" pages="2">
+<mxfile host="Electron" modified="2026-03-19T16:46:15.019Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="YW_fs9YGF_MKIJ5NYrjV" version="24.6.4" type="device" pages="3">
   <diagram name="Simplified Architecture" id="49ogvIZ9WNUlnE56zfri">
     <mxGraphModel dx="1834" dy="877" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -453,6 +453,198 @@
         </mxCell>
         <mxCell id="379c30v83qVuzbRHxF5c-0" value="Additional features to facilitate testing" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=18;" vertex="1" parent="J-3AkJCcWWKXwJZysH_x-1">
           <mxGeometry x="220" y="875" width="850" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="DwiMuaK7wldIufHEumez" name="Monitoring">
+    <mxGraphModel dx="1434" dy="877" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-54" target="xEymm3NxWnHUv9X86HCJ-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-54" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="20" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-7" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry y="220" width="200" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-1" target="xEymm3NxWnHUv9X86HCJ-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-1" value="WmMonitor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-2" value="JDBC pool" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-3" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="270" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-4" target="xEymm3NxWnHUv9X86HCJ-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-4" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-5" value="Integration &lt;br&gt;packages" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="290" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-6" value="Transversal webMethods database" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry y="560" width="1160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-8" value="Integration Microservice #1&lt;br&gt;(multi pod deployment)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry y="220" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-12" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="240" y="220" width="200" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-14" target="xEymm3NxWnHUv9X86HCJ-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-14" value="WmMonitor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-15" value="JDBC pool" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-16" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="270" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-18" target="xEymm3NxWnHUv9X86HCJ-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-18" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="280" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-19" value="Integration &lt;br&gt;packages" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="290" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-20" value="Integration Microservice #2&lt;br&gt;(multi pod deployment)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="240" y="220" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.1;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-22" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="480" y="220" width="200" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-24" target="xEymm3NxWnHUv9X86HCJ-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-24" value="WmMonitor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-25" value="JDBC pool" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-26" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="270" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-28" target="xEymm3NxWnHUv9X86HCJ-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-28" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="280" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-29" value="Integration &lt;br&gt;packages" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="290" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-30" value="Integration Microservice #3&lt;br&gt;(multi pod deployment)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="480" y="220" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.1;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-32" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="720" y="220" width="200" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-34" target="xEymm3NxWnHUv9X86HCJ-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-34" value="WmMonitor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-35" value="JDBC pool" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-36" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="270" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-38" target="xEymm3NxWnHUv9X86HCJ-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-38" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="280" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-39" value="Integration &lt;br&gt;packages" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="770" y="290" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-40" value="Integration Microservice #n&lt;br&gt;(multi pod deployment)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="720" y="220" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.1;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="820" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-42" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="960" y="220" width="200" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-44" target="xEymm3NxWnHUv9X86HCJ-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-44" value="WmMonitor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-45" value="JDBC pool" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-50" value="Monitoring microservice&lt;br&gt;(multi pod deployment)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="960" y="220" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xEymm3NxWnHUv9X86HCJ-45">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1060" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-52" value="" style="image;html=1;image=img/lib/clip_art/people/Telesales_Woman_Black_128x128.png" vertex="1" parent="1">
+          <mxGeometry x="970" y="70" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-53" value="" style="image;html=1;image=img/lib/clip_art/people/Worker_Man_128x128.png" vertex="1" parent="1">
+          <mxGeometry x="1070" y="70" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-56" value="People in charge of monitoring &lt;br&gt;and replaying the flows" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="960" y="21" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-57" value="" style="shape=mxgraph.signs.safety.no_entry;html=1;pointerEvents=1;fillColor=#a20025;strokeColor=#6F0000;verticalLabelPosition=bottom;verticalAlign=top;align=center;sketch=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40.5" y="60.5" width="99" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-58" value="" style="shape=mxgraph.signs.safety.no_entry;html=1;pointerEvents=1;fillColor=#a20025;strokeColor=#6F0000;verticalLabelPosition=bottom;verticalAlign=top;align=center;sketch=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="290.5" y="61" width="99" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-59" value="" style="shape=mxgraph.signs.safety.no_entry;html=1;pointerEvents=1;fillColor=#a20025;strokeColor=#6F0000;verticalLabelPosition=bottom;verticalAlign=top;align=center;sketch=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="530" y="60.5" width="99" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-60" value="" style="shape=mxgraph.signs.safety.no_entry;html=1;pointerEvents=1;fillColor=#a20025;strokeColor=#6F0000;verticalLabelPosition=bottom;verticalAlign=top;align=center;sketch=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="760.5" y="60.5" width="99" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-61" value="No access to the integration microservices admin UI (except for exceptional circumstances)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40.5" y="21" width="879.5" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="xEymm3NxWnHUv9X86HCJ-62" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=7;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="720" y="570" width="80" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

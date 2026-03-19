@@ -28,10 +28,10 @@ docker-push:
 	$(DOCKER_RUNTIME) push $(IMAGE_NAME):$(TAG)
 
 docker-dev-run:
-	MSR_DEV_PORT_NUMBER=${MSR_DEV_PORT_NUMBER} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) $(COMPOSE_RUNTIME) -f ./resources/docker-compose-dev/docker-compose.yml up -d
+	MSR_DEV_PORT_NUMBER=${MSR_DEV_PORT_NUMBER} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME)-dev $(COMPOSE_RUNTIME) -f ./resources/docker-compose-dev/docker-compose.yml up -d
 
 docker-dev-stop:
-	MSR_DEV_PORT_NUMBER=${MSR_DEV_PORT_NUMBER} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) $(COMPOSE_RUNTIME) -f ./resources/docker-compose-dev/docker-compose.yml down
+	MSR_DEV_PORT_NUMBER=${MSR_DEV_PORT_NUMBER} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME)-dev $(COMPOSE_RUNTIME) -f ./resources/docker-compose-dev/docker-compose.yml down
 
 docker-dev-msr-logs:
 	$(DOCKER_RUNTIME) logs -f DEPLOYMENT_NAME=$(DEPLOYMENT_NAME)-dev
@@ -42,10 +42,10 @@ docker-dev-link-package:
 	$(DOCKER_RUNTIME) exec -it $(DEPLOYMENT_NAME)-dev ln -s /opt/softwareag/IntegrationServer/packages/${PACKAGE} /git/${PACKAGE}
 
 docker-run:
-	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME)-dev DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER} $(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml up -d
+	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER} $(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml up -d
 
 docker-stop:
-	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME)-dev DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER}	$(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml down
+	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER}	$(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml down
 
 docker-msr-logs:
 	$(DOCKER_RUNTIME) logs -f $(DEPLOYMENT_NAME)
