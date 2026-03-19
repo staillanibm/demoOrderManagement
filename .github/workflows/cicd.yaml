@@ -1,4 +1,4 @@
-name: Build and push the image
+name: Build, push and deploy the image
 
 on:
   workflow_dispatch:
@@ -49,3 +49,40 @@ jobs:
       run: |
         git tag ${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }}
         git push origin ${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ github.run_number }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up kubeconfig
+      run: |
+        mkdir -p ~/.kube
+        echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+        chmod 600 ~/.kube/config
+
+    - name: Test cluster connectivity
+      run: kubectl get nodes
+
+    - name: Deploy
+      run: |
+        cd resources/kubernetes
+        kustomize edit set image ${{ vars.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}=${{ vars.REGISTRY_URL }}/${{ vars.IMAGE_NAME }}:${{ needs.build-and-push.outputs.image_tag }}
+        kubectl apply -k . -n ${{ vars.KUBE_NAMESPACE }}
+        kubectl rollout status deployment/${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} --timeout=5m
+
+    - name: Sanity check
+      run: |
+        PODS=$(kubectl get pods -l app=${{ vars.DEPLOYMENT_NAME }} -n ${{ vars.KUBE_NAMESPACE }} -o jsonpath='{.items[*].metadata.name}')
+        for POD in $PODS; do
+          echo "Checking $POD..."
+          STATUS=$(kubectl exec $POD -n ${{ vars.KUBE_NAMESPACE }} -- curl -s -o /dev/null -w "%{http_code}" http://localhost:5555/health)
+          if [ "$STATUS" != "200" ]; then
+            echo "Health check failed on $POD: HTTP $STATUS"
+            exit 1
+          fi
+          echo "$POD: OK"
+        done
