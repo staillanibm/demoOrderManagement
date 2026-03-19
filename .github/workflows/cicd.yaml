@@ -128,17 +128,21 @@ jobs:
           bash ./resources/tests/postOrder.sh
         echo "API_ORDER_ID=ORD-${TS}" >> $GITHUB_ENV
 
-    - name: Wait for processing
-      run: sleep 30
-
-    - name: Verify - File orders persisted
+    - name: Verify - orders persisted
       run: |
-        for ORDER_ID in "$FILE_ORDER_ID_1" "$FILE_ORDER_ID_2"; do
-          ROOT_URL=$ROOT_URL API_USER=tester API_PASSWORD=$TESTER_PASSWORD ORDER_ID=$ORDER_ID \
-            bash ./resources/tests/getOrderById.sh
+        for ORDER_ID in "$FILE_ORDER_ID_1" "$FILE_ORDER_ID_2" "$API_ORDER_ID"; do
+          echo "Waiting for $ORDER_ID..."
+          for i in $(seq 1 18); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X GET "${ROOT_URL}/OrdersAPI/orders/${ORDER_ID}" \
+              -u "tester:${TESTER_PASSWORD}" -H "Accept: application/json")
+            if [ "$STATUS" = "200" ]; then
+              echo "$ORDER_ID: OK"
+              break
+            fi
+            if [ "$i" = "18" ]; then
+              echo "$ORDER_ID: not found after 90s (HTTP $STATUS)"
+              exit 1
+            fi
+            sleep 5
+          done
         done
-
-    - name: Verify - API order persisted
-      run: |
-        ROOT_URL=$ROOT_URL API_USER=tester API_PASSWORD=$TESTER_PASSWORD ORDER_ID=$API_ORDER_ID \
-          bash ./resources/tests/getOrderById.sh
