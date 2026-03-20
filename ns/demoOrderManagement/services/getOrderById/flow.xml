@@ -1088,9 +1088,6 @@
 
 <MAPCOPY FROM="/selectOrderByIdOutput;2;0/results;2;1/shipping_country;1;0" TO="/order;4;0;demoOrderManagement.docTypes:OrderCanonical/shippingAddress;2;0/country;1;0">
 </MAPCOPY>
-
-<MAPCOPY FROM="/selectOrderByIdOutput;2;0/results;2;1/currency;1;0" TO="/order;4;0;demoOrderManagement.docTypes:OrderCanonical/currency;1;0">
-</MAPCOPY>
 </MAP>
 
 <INVOKE TIMEOUT="" SERVICE="demoOrderManagement.jdbc:selectOrderItemsById" VALIDATE-IN="$none" VALIDATE-OUT="$none">

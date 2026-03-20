@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2026-03-19T16:46:15.019Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="YW_fs9YGF_MKIJ5NYrjV" version="24.6.4" type="device" pages="3">
+<mxfile host="Electron" modified="2026-03-20T07:30:44.087Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="HIle5z2TxGxBbpDea_YT" version="24.6.4" type="device" pages="4">
   <diagram name="Simplified Architecture" id="49ogvIZ9WNUlnE56zfri">
     <mxGraphModel dx="1834" dy="877" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -645,6 +645,191 @@
         </mxCell>
         <mxCell id="xEymm3NxWnHUv9X86HCJ-62" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=7;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry x="720" y="570" width="80" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="55KjKn4pJxlAogQjZgt3" name="Page-4">
+    <mxGraphModel dx="1434" dy="877" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="OcptoTwweS1_06QXVOYa-1" value="Hands-on to implement wM microservices" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-2" value="With architecture related discussions" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-3" value="Showcase in a public Github repo" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-4" value="Other public repos, including the one &lt;br&gt;we&#39;ll use for observability" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-5" value="Half-flow pattern with use of a canonical format" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-6" value="Introduction" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-7" value="Demo architecture" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-8" value="Inbound channel with CSV file detected via file polling, parsed with WmFlatFile" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-9" value="Inbound channel with JMS queue that accepts XML content" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-10" value="REST API method to inject XML messages into this queue" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-11" value="Transformation of the incoming orders into the canonical format and JMS send" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-12" value="Second half-flow inserts the order into a Postgres DB via the JDBC adapter" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-13" value="Repo can be used to get started" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-14" value="Cloud-native webMethods" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-15" value="MSR replaces the IS" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-16" value="Essential properties of the MSR" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-17" value="webMethods Container registry" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-18" value="webMethods Package Manager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-19" value="webMethods Package registry" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-20" value="Package installation from Git repositories" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-21" value="Development" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-22" value="Constraints and opportunities" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-23" value="Development environment topologies" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-24" value="Local Service Development feature" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-25" value="Additional tooling" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-26" value="Image build" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-27" value="Example of a Dockerfile &lt;br&gt;and build test" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="200" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-28" value="Use of wpm" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-30" value="Copy of drivers and other libraries" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-31" value="Why a staged build?" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-32" value="Corporate base image" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-33" value="External configuration" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-34" value="Build once, deploy multiple times" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-35" value="What can be configured externally" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-36" value="Use of env. variables, secrets and HVault" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-37" value="Example of application properties file" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-38" value="Helper to generate this file" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-39" value="Management of keystores and truststores" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-40" value="Testing in Docker Compose" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-41" value="Why is it useful?" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-42" value="Example of docker compose stack" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-43" value="Typical workflow" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-44" value="Deployment in Kubernetes" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-45" value="This is a standard deployment with no OCP specificity (except use of route)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-46" value="Test of deployment" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="520" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-47" value="Example of stateless deployment" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-48" value="TLS termination" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-49" value="Helm charts provided by TEL" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-50" value="Health probes" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-51" value="CI/CD" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-52" value="Standard DevOps tooling, no ABE, no deployer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-53" value="Example pipeline description" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-54" value="Run the pipeline" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="680" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-55" value="Change in package" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="840" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-56" value="Build locally only to test locally - the CI/CD pipeline builds the prod images" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-57" value="Test of change in package" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="680" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-58" value="Push of changes to Github" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="840" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-59" value="Design and triggering strategies" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OcptoTwweS1_06QXVOYa-60" value="Analyze the result" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="840" y="840" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
