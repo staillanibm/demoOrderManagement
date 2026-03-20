@@ -2,9 +2,19 @@
 
 There is no single correct CI/CD pipeline design — multiple valid approaches exist, and the best one is usually the one that aligns with the DevOps practices already in place in the organisation. A webMethods integration microservice pipeline should not look fundamentally different from a Spring Boot or Node.js pipeline. The tooling, the stages, and the conventions can be identical.
 
+> **No Assets Build Environment or webMethods Deployer required.**
+> The legacy toolchain — Assets Build Environment (ABE) and webMethods Deployer — was designed for traditional, on-premise deployment models. With MSR running as a container, neither tool is needed. The build artefact is an OCI image built with a standard `docker build`; the deployment target is a container platform managed with `kubectl` or a GitOps controller. Any mainstream CI/CD platform handles the full pipeline without any webMethods-specific infrastructure.
+
 The only webMethods-specific step is the image build, which installs packages via `wpm` and copies the integration package into the MSR base image (see [Image Build](image-build.md)). Once the container image is built and pushed to a registry, everything that follows is standard: the deployment target is a container platform, the artefact is an OCI image, and any mainstream CI/CD tool can take it from there.
 
-**CI/CD platforms** — all of the following integrate naturally with a containerised deployment workflow:
+**Java services and `jcode`**  
+When an integration package contains Java services, only the **source code** needs to be committed to Git — not the compiled `.class` files. Compilation is handled at image build time by `jcode`, a utility that ships with the MSR base image. `jcode` compiles all Java services found in the package and wires them into the runtime in a single command. A typical `Dockerfile` snippet:
+
+```dockerfile
+RUN /opt/softwareag/IntegrationServer/bin/jcode.sh makeall myFramework
+```
+
+**CI/CD platforms** — all of the following (and more) integrate naturally with a containerised deployment workflow:
 - GitHub Actions
 - GitLab CI
 - Azure Pipelines
