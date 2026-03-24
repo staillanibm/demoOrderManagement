@@ -4,7 +4,9 @@
 
 **WmMonitor** is the webMethods package responsible for tracking service and process executions and persisting that data to a database via a JDBC connection pool. This monitoring data can then be consulted and replayed from a dedicated monitoring UI.
 
-WmMonitor is **not included in the official MSR base images** available from the webMethods container registry, and it cannot be installed via `wpm` — it is not published on [packages.webmethods.io](https://packages.webmethods.io). The only supported way to get it is to build a container image using the **standard webMethods installer**. This works well and can be fully automated, but the resulting image is larger and less optimized than images built on top of the official MSR base image (see [Image Build](image-build.md)).
+WmMonitor is **not included in the official MSR base images** available from the webMethods container registry, and it cannot be installed via `wpm` — it is not published on [packages.webmethods.io](https://packages.webmethods.io). You need to build a container image using the **standard webMethods installer**.
+
+An experimental alternative is to retrieve the `WmMonitor` directory from a manual installation, store it in a Git repository, and install it via `wpm` in the Dockerfile. This is not officially documented but appears to work correctly. It should not be implemented without Expert Labs guidance.
 
 ## Architecture
 

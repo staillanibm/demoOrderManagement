@@ -72,4 +72,47 @@ At no point is there a big-bang cutover. The monolith shrinks gradually while th
 
 The strangler fig does not require the monolith and the microservice to coexist indefinitely — the goal is always to complete the migration and retire the old flow. But it removes the need to migrate everything at once, which is rarely feasible in a production environment.
 
+### Step by step example
+
+#### S0 — The monolithic ESB
+
+![S0 — Monolithic ESB](images/BreakingTheMonolith_S0.png)
+
+All packages run in a single IS runtime. Services can call each other in-memory across package boundaries. Two categories of packages play a horizontal role: **framework packages** (error handling, logging, auditing) and **utility packages** (shared transformations), both consumed widely across the estate. A dedicated **configuration package** centralises all environment-specific properties, making Deployer-based promotion straightforward.
+
+#### S1 — First microservice (prototype)
+
+![S1 — First microservice prototype](images/BreakingTheMonolith_S1.png)
+
+The Strangler Fig pattern starts with a single, well-bounded candidate extracted from the monolith. The prototype is built to go to production — the goal is to validate the target architecture under real conditions: containerisation, orchestration, CI/CD pipeline, package extraction, externalised configuration.
+
+Framework and utility packages are **duplicated** into the microservice rather than called remotely — in-memory calls are preserved for performance reasons, which matters given the call volumes these packages absorb.
+
+Each microservice owns its configuration: the relevant properties are extracted from the central configuration package and managed independently, replacing the Deployer-based promotion model with externalised configuration (see [External Configuration](external-configuration.md)).
+
+The monolith continues to run unchanged. Traffic for the migrated flow is redirected to the new microservice via the inbound channel.
+
+This first production-grade microservice validates the business case hypotheses before committing to a full migration.
+
+#### S2 — Migration in progress
+
+![S2 — Migration in progress](images/BreakingTheMonolith_S2.png)
+
+If the prototype is successful, the pattern is applied to the next cohesive set of packages. A second microservice is extracted and put into production following the same approach: duplication of framework and utility packages, extraction of the relevant configuration, redirection of the inbound channel.
+
+The monolith shrinks progressively as flows are migrated one batch at a time.
+
+#### S3 — End of migration
+
+![S3 — End of migration](images/BreakingTheMonolith_S3.png)
+
+The extraction process continues, one cohesive batch at a time, until all packages have been migrated. The monolith is now empty — all flows run as independent microservices.
+
+#### S4 — Monolith decommissioned
+
+![S4 — Monolith decommissioned](images/BreakingTheMonolith_S4.png)
+
+Once all packages have been migrated, the monolith is decommissioned. In this example, migrated packages are kept in the ESB marked as unused — but they can equally be removed progressively, once a microservice has been running in production long enough to confirm it is stable.
+
+At any point during the migration, a rollback to the monolith remains possible: redirecting the inbound channel back to the ESB is sufficient to revert a microservice to its previous state. This reversibility is a key risk mitigation factor of the Strangler Fig approach.
 
