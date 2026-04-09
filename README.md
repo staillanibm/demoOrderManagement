@@ -18,7 +18,8 @@
 14. [Breaking the Monolith](resources/documentation/breaking-the-monolith.md)
 15. [Autoscaling](resources/documentation/autoscaling.md)
 16. [Pre-baked vs Fried](resources/documentation/prebaked-vs-fried.md)
-17. [Recommendations](resources/documentation/recommendations.md)
+17. [Security Hardening](resources/documentation/security-hardening.md)
+18. [Recommendations](resources/documentation/recommendations.md)
 
 ---
 
