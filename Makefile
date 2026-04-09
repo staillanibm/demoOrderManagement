@@ -7,12 +7,13 @@ TAG=latest
 DEPLOYMENT_NAME=msr-order-management
 
 MSR_DEV_PORT_NUMBER=15555
-DOCKER_PORT_NUMBER=16666
-DOCKER_ROOT_URL=http://localhost:$(DOCKER_PORT_NUMBER)
+DOCKER_ADMIN_PORT_NUMBER=16666
+DOCKER_API_PORT_NUMBER=18843
+DOCKER_ROOT_URL=https://localhost:$(DOCKER_API_PORT_NUMBER)
 DOCKER_ADMIN_PASSWORD=$(shell grep '^ADMIN_PASSWORD=' ./resources/docker-compose/.env | cut -d'=' -f2)
 
 KUBE_NAMESPACE=integration
-KUBE_ROOT_URL=https://$(shell kubectl get route $(DEPLOYMENT_NAME) -n $(KUBE_NAMESPACE) -o jsonpath='{.spec.host}')
+KUBE_ROOT_URL=https://$(shell kubectl get route $(DEPLOYMENT_NAME)-api -n $(KUBE_NAMESPACE) -o jsonpath='{.spec.host}')
 KUBE_TEST_PASSWORD=$(shell kubectl get secret $(DEPLOYMENT_NAME) -n $(KUBE_NAMESPACE) -o jsonpath='{.data.TESTER_PASSWORD}' | base64 -d)
 
 docker-build:
@@ -42,10 +43,14 @@ docker-dev-link-package:
 	$(DOCKER_RUNTIME) exec -it $(DEPLOYMENT_NAME)-dev ln -s /opt/softwareag/IntegrationServer/packages/${PACKAGE} /git/${PACKAGE}
 
 docker-run:
-	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER} $(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml up -d
+	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) \
+	DOCKER_ADMIN_PORT_NUMBER=${DOCKER_ADMIN_PORT_NUMBER} DOCKER_API_PORT_NUMBER=${DOCKER_API_PORT_NUMBER} \
+	$(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml up -d
 
 docker-stop:
-	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) DOCKER_PORT_NUMBER=${DOCKER_PORT_NUMBER}	$(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml down
+	IMAGE_NAME=${IMAGE_NAME} TAG=${TAG} DEPLOYMENT_NAME=$(DEPLOYMENT_NAME) \
+	DOCKER_ADMIN_PORT_NUMBER=${DOCKER_ADMIN_PORT_NUMBER} DOCKER_API_PORT_NUMBER=${DOCKER_API_PORT_NUMBER} \
+	$(COMPOSE_RUNTIME) -f ./resources/docker-compose/docker-compose.yml down
 
 docker-msr-logs:
 	$(DOCKER_RUNTIME) logs -f $(DEPLOYMENT_NAME)

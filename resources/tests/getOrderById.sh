@@ -7,7 +7,7 @@ if [ -z "$ORDER_ID" ]; then
   exit 1
 fi
 
-RESPONSE=$(curl -s -w "\n%{http_code}" -X GET "${ROOT_URL}/OrdersAPI/orders/${ORDER_ID}" \
+RESPONSE=$(curl -k -s -w "\n%{http_code}" -X GET "${ROOT_URL}/OrdersAPI/orders/${ORDER_ID}" \
   -u "${API_USER}:${API_PASSWORD}" \
   -H "Accept: application/json")
 

@@ -37,6 +37,10 @@ spec:
               mountPath: /certs/um/um-truststore.jks
               subPath: um-truststore.jks
               readOnly: true
+            - name: api-keystore
+              mountPath: /certs/api/api-keystore.p12
+              subPath: api-keystore.p12
+              readOnly: true
             - name: msr-order-management-pvc
               mountPath: /opt/softwareag/IntegrationServer/files
           readinessProbe:
@@ -53,6 +57,16 @@ spec:
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 1
+          ports:
+            - name: http
+              containerPort: 5555
+              protocol: TCP
+            - name: https
+              containerPort: 5543
+              protocol: TCP
+            - name: api
+              containerPort: 8843
+              protocol: TCP
           resources:
             requests:
               cpu: 300m
@@ -76,6 +90,13 @@ spec:
             items:
             - key:  um-truststore.jks
               path: um-truststore.jks
+        - name: api-keystore
+          secret:
+            secretName: api-keystore
+            items:
+            - key:  api-keystore.p12
+              path: api-keystore.p12
+
         - name: msr-order-management-pvc
           persistentVolumeClaim:
             claimName: msr-order-management

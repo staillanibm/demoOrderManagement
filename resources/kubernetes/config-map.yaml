@@ -24,6 +24,12 @@ data:
     jms.DEFAULT_IS_JMS_CONNECTION.producerRetryInterval=1000
     jms.DEFAULT_IS_JMS_CONNECTION.jndi_connectionFactoryLookupName=k8s_um
 
+    keystore.API_KEYSTORE.ksLocation=/certs/api/api-keystore.p12
+    keystore.API_KEYSTORE.ksType=PKCS12
+    keystore.API_KEYSTORE.ksStoreProviderName=SUN
+    keystore.API_KEYSTORE.ksPassword=$secret{API_KEYSTORE_PASSWORD}
+    keystore.API_KEYSTORE.keyAlias.sttlab.local.keyAliasPassword=$secret{API_KEYSTORE_PASSWORD}
+
     settings.watt.net.default.accept=application/json
     settings.watt.server.ns.lockingMode=none
 

@@ -15,4 +15,4 @@ resources:
 images:
 - name: ghcr.io/staillanibm/msr-order-management
   newName: ghcr.io/staillanibm/msr-order-management
-  newTag: 1.0.2
+  newTag: 1.0.3

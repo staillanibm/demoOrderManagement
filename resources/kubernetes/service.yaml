@@ -5,13 +5,37 @@ metadata:
   labels:
     name: msr-order-management
     app: msr-order-management
-    monitoring: enabled 
+    monitoring: enabled
 spec:
   selector:
     app: msr-order-management
   type: ClusterIP
   sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 3600
   ports:
   - port: 5555
     targetPort: 5555
     name: http
+  - port: 5543
+    targetPort: 5543
+    name: https
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: msr-order-management-api
+  labels:
+    name: msr-order-management-api
+    app: msr-order-management
+spec:
+  selector:
+    app: msr-order-management
+  type: ClusterIP
+  ports:
+  - port: 8843
+    targetPort: 8843
+    name: api

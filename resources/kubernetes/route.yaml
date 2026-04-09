@@ -15,3 +15,21 @@ spec:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
 
+---
+
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: msr-order-management-api
+  labels:
+    app: msr-order-management
+spec:
+  to:
+    kind: Service
+    name: msr-order-management-api
+    weight: 100
+  port:
+    targetPort: api
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect

@@ -4,7 +4,7 @@ API_PASSWORD=${API_PASSWORD:-"manage"}
 TS=${TS:-$(date +%Y%m%d-%H%M%S)}
 ISO_TS=${ISO_TS:-$(date +%Y-%m-%dT%H:%M:%S.000)}
 
-RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${ROOT_URL}/OrdersAPI/orders" \
+RESPONSE=$(curl -k -s -w "\n%{http_code}" -X POST "${ROOT_URL}/OrdersAPI/orders" \
   -u "${API_USER}:${API_PASSWORD}" \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
