@@ -28,6 +28,46 @@ Sharing a database between microservices is generally discouraged in a strict mi
 
 If that point is reached, the right move is to partition monitoring: each microservice (or logical group) gets its own monitoring database, and an aggregation layer is added if a unified view is still required.
 
+## Database setup
+
+### Creating the database components
+
+The webMethods monitoring database is provisioned using the **Database Component Configurator** (DCC), part of the webMethods Installer. Full documentation is available at the [IBM documentation portal](https://www.ibm.com/docs/en/webmethods-integration/webmethods-installer/11.1.0?topic=ipcdccpdc-installing-products-using-webmethods-installer-creating-database-components-using-database-component-configurator).
+
+Three components must be selected during the DCC configuration:
+
+| Component | Purpose |
+|---|---|
+| **ISInternal** | Core Integration Server internal tables |
+| **ISCoreAudit** | Service-level audit and execution tracking |
+| **ProcessAudit** | Business process execution tracking |
+
+### Connecting the Microservice Runtime to the database
+
+Once the database schema is in place, each MSR instance — integration microservices and the monitoring microservice alike — must be configured to use it. This is done by adding entries to the `application.properties` file.
+
+**Declare a JDBC connection pool:**
+
+```properties
+jdbc.wmdb.dbURL=$env{POOL_JDBC_URL}
+jdbc.wmdb.userid=$env{POOL_DB_USERNAME}
+jdbc.wmdb.password=$env{POOL_DB_PASSWORD}
+jdbc.wmdb.driverAlias=DataDirect Connect JDBC PostgreSQL Driver
+```
+
+The pool name (`wmdb` here) is arbitrary and can be anything meaningful. Sensitive values are injected via environment variables (like in the provided example) or via secrets.  
+The `driverAlias` corresponds to the JDBC driver configured in the MSR.
+
+**Bind the three components to the pool:**
+
+```properties
+jdbcfunc.ISCoreAudit.connPoolAlias=wmdb
+jdbcfunc.ISInternal.connPoolAlias=wmdb
+jdbcfunc.ProcessAudit.connPoolAlias=wmdb
+```
+
+On startup, the MSR will initialise each component against the shared database.
+
 ## Flow replay
 
 When an operator decides to replay a flow from the monitoring UI, WmMonitor needs to know which Integration Server instance to target for the reinjection. This is configured via the `watt.net.localhost` extended setting, which each integration microservice sets to the name of its **Kubernetes / OCP service**.
