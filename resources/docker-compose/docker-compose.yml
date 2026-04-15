@@ -47,6 +47,7 @@ services:
       - ./application.properties:/opt/softwareag/IntegrationServer/application.properties
       - ./api_keystore.p12:/certs/api_keystore.p12
       - ./files:/opt/softwareag/IntegrationServer/files
+      - ./acls.cnf:/opt/softwareag/IntegrationServer/config/acls.cnf
     env_file:
       - .env
     healthcheck:

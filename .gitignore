@@ -15,3 +15,4 @@ config/WORK-txnPassStore.dat
 resources/openshift/.env
 *.bkp
 resources/docker-compose/files/
+dependencies/

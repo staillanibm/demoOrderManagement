@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <value name="defAccess" id="1">false</value>
+  <record name="groups" id="2" javaclass="com.wm.util.Values">
+    <record name="Replicators" id="3" javaclass="com.wm.app.b2b.server.ACLGroup">
+      <value name="name" id="4">Replicators</value>
+      <record name="allow" id="5" javaclass="com.wm.util.Values">
+        <value name="local/Administrators" id="6">local/Administrators</value>
+        <value name="local/Replicators" id="7">local/Replicators</value>
+      </record>
+      <record name="deny" id="8" javaclass="com.wm.util.Values">
+      </record>
+    </record>
+    <record name="Developers" id="9" javaclass="com.wm.app.b2b.server.ACLGroup">
+      <value name="name" id="10">Developers</value>
+      <record name="allow" id="11" javaclass="com.wm.util.Values">
+        <object idref="6" name="local/Administrators"/>
+        <value name="local/Developers" id="12">local/Developers</value>
+      </record>
+      <record name="deny" id="13" javaclass="com.wm.util.Values">
+      </record>
+    </record>
+    <record name="Internal" id="14" javaclass="com.wm.app.b2b.server.ACLGroup">
+      <value name="name" id="15">Internal</value>
+      <record name="allow" id="16" javaclass="com.wm.util.Values">
+        <object idref="6" name="local/Administrators"/>
+        <object idref="12" name="local/Developers"/>
+      </record>
+      <record name="deny" id="17" javaclass="com.wm.util.Values">
+      </record>
+    </record>
+    <record name="ReadOnlyAdministrators" id="18" javaclass="com.wm.app.b2b.server.ACLGroup">
+      <value name="name" id="19">ReadOnlyAdministrators</value>
+      <record name="allow" id="20" javaclass="com.wm.util.Values">
+        <value name="local/ReadOnlyAdministrators" id="21">local/ReadOnlyAdministrators</value>
+      </record>
+      <record name="deny" id="22" javaclass="com.wm.util.Values">
+      </record>
+    </record>
+    <record name="Administrators" id="23" javaclass="com.wm.app.b2b.server.ACLGroup">
+      <value name="name" id="24">Administrators</value>
+      <record name="allow" id="25" javaclass="com.wm.util.Values">
+        <object idref="6" name="local/Administrators"/>
+      </record>
+      <record name="deny" id="26" javaclass="com.wm.util.Values">
+      </record>
+    </record>
+    <record name="Anonymous" id="27" javaclass="com.wm.app.b2b.server.ACLGroup">
+      <value name="name" id="28">Anonymous</value>
+      <record name="allow" id="29" javaclass="com.wm.util.Values">
+        <value name="local/Everybody" id="30">local/Everybody</value>
+      </record>
+      <record name="deny" id="31" javaclass="com.wm.util.Values">
+      </record>
+    </record>
+    <record name="Default" id="32" javaclass="com.wm.app.b2b.server.ACLGroup">
+      <value name="name" id="33">Default</value>
+      <record name="allow" id="34" javaclass="com.wm.util.Values">
+        <object idref="30" name="local/Everybody"/>
+      </record>
+      <record name="deny" id="35" javaclass="com.wm.util.Values">
+        <value name="local/Anonymous" id="36">local/Anonymous</value>
+      </record>
+    </record>
+    <record name="MonitorUsers" id="37" javaclass="com.wm.app.b2b.server.ACLGroup">
+      <value name="name" id="38">MonitorUsers</value>
+      <record name="allow" id="39" javaclass="com.wm.util.Values">
+        <object idref="6" name="local/Administrators"/>
+      </record>
+      <record name="deny" id="40" javaclass="com.wm.util.Values">
+      </record>
+    </record>
+  </record>
+</Values>
